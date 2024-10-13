@@ -20,7 +20,7 @@
         <form method="post" class="form-control mt-5 p-4"
             style="height:auto; width:580px;
             box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-            rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;" onchange="this.form.submit()">
+            rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
 
             <label>Please select patient name : </label>
 
@@ -38,12 +38,13 @@
                 }
                 echo '</select><br>';
 
-                echo '<label>Please upload the prescription : </label><input name="prescriptionFile" id="prescriptionFile" type="file" onchange="this.form.submit()"><br>';
+                echo '<label>Please upload the prescription : </label><input name="prescriptionFile" id="prescriptionFile" type="file" ><br>';
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $pId = $_POST['patientList']; //patientID 
-                    $fileTmpPath = $_FILES['prescriptionFile'];
-                    $fileData = file_get_contents($fileTmpPath);
+                    $fileTmpPath = $_POST['prescriptionFile'];
+                    $fileData =  file_get_contents($fileTmpPath);
+                    //    print_r(json_decode($fileData, true));
 
                     $query = "INSERT INTO `prescription`(`ID`, `Doctor_ID`, `Patient_ID`, `Prescription_File`) VALUES ('','$dId','$pId','$fileData')";
                     print($query);
@@ -52,7 +53,7 @@
                 echo '<button class="btn btn-primary" onSubmit="document.write(' . 'File uploaded successfully!' . ');">Submit</button><br>';
             }
 
-            $result->close();
+            //    $result->close();
             $conn->close();
             ?>
 
