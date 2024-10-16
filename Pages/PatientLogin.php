@@ -13,23 +13,28 @@
     <?php
     include '../DB/DB_connect.php';
     $OK = true;
+    echo "<button class='btn btn-primary' onclick='header(\"Location:../index.php\");'>return to home page</button>";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      //  print("here");
+        //  print("here");
         $username = $_POST['usrnm'];
         $name = $_POST['Name'];
         $password = $_POST['pass'];
         $query = "SELECT `ID`, `Name`, `userName`, `Password` FROM `patients` WHERE `userName`= '$username' AND `password`='$password';";
-      //  print($query);
+        //  print($query);
         // Check if  already exists
-        $checkStmt = $conn->prepare($query);
+        $checkStmt = $conn->query($query);
         //  $checkStmt->bind_param("s", $username);
-        $checkStmt->execute();
-        $checkStmt->store_result();
-       // print_r($checkStmt->num_rows);
+        //$checkStmt->execute();
+        // $checkStmt->store_result();
+        // print_r($checkStmt->num_rows);
         if ($checkStmt->num_rows > 0) {
             // user Exists
             $OK = true;
-        //    print("ok");
+            $row = $checkStmt->fetch_assoc();
+            $ID = $row["ID"]; //
+            $_SESSION["pId"]=$pId;
+            header("Location: ViewPrescription.php?pId=$ID");
+            //    print("ok");
         } else {
             $OK = false;
             // redirect to register

@@ -12,6 +12,8 @@
 <body>
     <?php
     include '../DB/DB_connect.php';
+
+    echo "<button class='btn btn-primary' onclick='header(\"Location:../index.php\");'>return to home page</button>";
     $OK = true;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['usrnm'];
@@ -30,6 +32,7 @@
             $result = $conn->query($query);
             $dId = $result->fetch_assoc()["ID"];
             $OK = true;
+            $_SESSION["dId"]=$dId;
             header("Location: writePrescription.php?dId=$dId");
         } else {
             $OK = false;
