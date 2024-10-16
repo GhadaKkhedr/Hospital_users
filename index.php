@@ -11,6 +11,7 @@
 <body class="bg-light">
     <?php
     include 'DB/DB_connect.php';
+    session_start();
     ?>
     <div class="bg-image container p-5 d-flex flex-column align-items-end justify-content-center" style="background-image: url('images/Home.png'); height: 100vh;background-size: cover;">
 
